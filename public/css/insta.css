@@ -1,0 +1,11 @@
+.side-button{
+    height:7%; 
+    width: 5%;
+    position:absolute; 
+    z-index:50; 
+    left:0;
+    transition: width 400ms;
+}
+.side-button:hover{
+    width:200px;
+}
