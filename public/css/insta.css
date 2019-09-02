@@ -1,11 +1,41 @@
+.top-navigation_button{
+    bottom : 2%;
+     right : 2%;
+      position : fixed; 
+      border-radius:50%;
+      box-shadow: 0 0 10px 10px rgb(202, 33, 202);
+}
 .side-button{
-    height:7%; 
-    width: 5%;
-    position:absolute; 
-    z-index:50; 
-    left:0;
-    transition: width 400ms;
+    height:100%; 
+    width: 100%;  
+    transition: width 500ms;
+    justify-content: left;
+    
 }
 .side-button:hover{
-    width:200px;
+    width:150%;
 }
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    position: fixed;
+    left: 50%;
+    display: none;
+    top : 50%;
+    height: 120px;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

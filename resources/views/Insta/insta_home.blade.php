@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'Instapic: Home')
+
 @push('head')
 <link rel="stylesheet" href="{{asset('/css/insta.css')}}">
 <script src="{{asset('/js/insta.js')}}">
@@ -7,7 +9,12 @@
 
 @section('content')
 
-<a href="#" class="btn btn-danger btn-lg" style="bottom : 0; right : 0; position : fixed;"><span>&#8593</span> </a>
+<a href="#" class="btn btn-success btn-lg top-navigation_button"><span>&#8593</span> </a>
+<ul style="position: fixed; z-index:50; left:0; list-style-type:none; top:40%">
+    <li> <a class="btn btn-primary btn-lg side-button text-left" id = "sidebutton_posts" onmouseover="changetext(this)" onmouseout="reseticon(this)" href="/insta"><span class="glyphicon glyphicon-globe"></span></a></li>
+    <br>
+    <li> <a class="btn btn-primary btn-lg side-button text-left" id = "sidebutton_friends" onmouseover="changetext(this)" onmouseout="reseticon(this)" href="{{ route('friends',['id'=> Auth::id()]) }}"><span class="glyphicon glyphicon-user"></span></a></li>
+    </ul>
 <div class="container" id = "fixme" style="z-index : 1">    
     <div class="row" style="padding:2%; box-shadow: 3px 3px 20px 8px blue;">
     <div class="col-md-4" style="text-align: center">
@@ -35,10 +42,7 @@
     </div>
     <br>
     <div class="d-flex justify-content-around">
-       <ul style="position: absolute; z-index:50;">
-       <li> <button class="btn btn-primary btn-lg side-button"><span class="glyphicon glyphicon-globe"></span></button></li>
-       <li> <button class="btn btn-primary btn-lg side-button"><span class="glyphicon glyphicon-user"></span></button></li>
-       </ul>
+       
     <div class='container'>
     @if (count($photos)>0)
     @foreach ($photos as $item)
@@ -46,7 +50,12 @@
     <font size=3>
     <div class='d-flex justify-content-between'>
     <div>
-            <img src="/storage/insta_images/{{$item->user->user_profile->profile_photo}}" class="img-circle" style="position:relative; width:5%; height:auto;">
+        @if (!empty($item->user->user_profile->profile_photo))
+        <img src="/storage/insta_images/{{$item->user->user_profile->profile_photo}}" class="img-circle" style="position:relative; width:5%; height:auto;">
+        @else
+        <img src="/storage/insta_images/noimage.jpg" class="img-circle" style="position:relative; width:5%; height:auto;">
+        @endif
+           
         <b> {{$item->user->name}} </b> has posted a image =><br>
     <code> Uploaded at : {{$item->created_at }}</code>
     </div>

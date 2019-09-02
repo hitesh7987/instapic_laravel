@@ -33,6 +33,13 @@ Route::post('/insta/upload_post','Insta\InstaController@upload_post');
 Route::get('/insta/delete/{id}','Insta\InstaController@delete_post');
 Route::post('/insta/post_comment','Insta\InstaController@post_comment');
 Route::get('insta/{photo_id}/comments','Insta\InstaController@photo_comment');
+
+Route::get('insta/{id}/friends', ['uses' => 'Insta\InstaController@friends', 'as' => 'friends']);
+Route::get('insta/{id}/view_friends',['uses' => 'Insta\InstaController@view_friends','as' => 'view_friends']);
+Route::get('insta/{id}/view_pendingRequest',['uses' => 'Insta\InstaController@view_pendingRequest', 'as' => 'view_pendingRequest']);
+Route::get('insta/{id}/view_sentRequest',['uses' => 'Insta\InstaController@view_sentRequest', 'as' => 'view_sentRequest']);
+Route::get('insta/{id}/view_people',['uses' => 'Insta\InstaController@view_people', 'as' => 'view_people']);
+Route::post('insta/sendRequest','Insta\InstaController@sendRequest');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

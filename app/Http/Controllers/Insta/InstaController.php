@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Photo;
 use App\Models\Photo_comment;
 use App\Models\UserProfile;
+use App\User;
+use App\Models\Relationship;
 
 class InstaController extends Controller
 {
@@ -21,6 +23,7 @@ class InstaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    /////////////INSTA HOME//////////////
     public function home(){
         $photos = Photo::orderBy('updated_at','desc')->paginate();
         $image = 'noimage.jpg';
@@ -121,5 +124,33 @@ class InstaController extends Controller
     public function photo_comment($photo_id){
         $comments = Photo_comment::where('photo_id',$photo_id)->orderBy('updated_at','desc')->paginate(3);
         return view('Insta\comments')->with('comments',$comments)->render();
+    }
+/////////INSTA FRIENDS//////////////
+    public function friends($id){
+        return view('Insta/insta_friends')->with('id',$id);
+    }
+    public function view_friends($id){
+       return view('Insta/test')->render();
+    }
+    public function view_pendingRequest($id){
+
+    }
+    public function view_sentRequest($id){
+
+    }
+    public function view_people($id){
+        $users = User::where('id','!=', auth()->id())->get();
+        return view('Insta\test')->with('users', $users)->render();
+   
+    }
+    public function sendRequest(Request $request){
+        $relation = new Relationship;
+        $relation->sender = auth()->user()->id;
+        $relation->receiver = $request->input('receiver_id');
+        $relation->status = 1;
+        $relation->action_userid = auth()->user()->id;
+        $relation->save();
+        return 'success';
+     //   return redirect('/insta'.'/'. auth()->user()->id .'/friends')->with('success', 'Request sent.');
     }
 }
